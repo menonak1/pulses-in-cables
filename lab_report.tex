@@ -1,0 +1,283 @@
+\documentclass[12pt,a4paper]{article}
+
+% Packages for formatting and physics
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{siunitx}
+\usepackage{physics}
+\usepackage{hyperref}
+\usepackage{cite}
+\usepackage{setspace}
+
+% Document settings
+\doublespacing
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+% Title page information
+\title{Propagation of Electrical Pulses in Cables:\\
+A Study of Wave Behavior and Transmission Line Theory}
+\author{Your Name\\
+Student ID: XXXXXXXX\\
+Lab Partner: Partner Name\\
+\\
+Department of Physics\\
+University Name}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+% Abstract
+\begin{abstract}
+This experiment investigates the propagation of electrical pulses through transmission cables. We examine pulse shape distortion, reflection phenomena, and impedance matching effects. By measuring pulse velocities and analyzing reflections at cable terminations, we verify theoretical predictions from transmission line theory. Our results demonstrate the importance of impedance matching in signal transmission and provide quantitative measurements of propagation velocities and reflection coefficients. The measured pulse velocity was found to be \SI{X.XX \pm 0.XX e8}{\meter\per\second}, consistent with theoretical expectations for the cable medium.
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+% Introduction
+\section{Introduction}
+
+The study of electrical pulse propagation in transmission lines is fundamental to understanding modern communications and signal processing systems. When an electrical pulse travels through a cable, it behaves as an electromagnetic wave subject to the principles of transmission line theory. This experiment explores several key phenomena including:
+
+\begin{itemize}
+    \item The finite velocity of pulse propagation
+    \item Pulse reflections at impedance discontinuities
+    \item The effects of impedance matching on signal integrity
+    \item Dispersion and pulse shape distortion
+\end{itemize}
+
+Understanding these concepts is crucial for applications ranging from high-speed digital electronics to long-distance communication systems.
+
+% Theoretical Background
+\section{Theoretical Background}
+
+\subsection{Transmission Line Theory}
+
+A transmission line can be modeled as a distributed network of inductance $L$ and capacitance $C$ per unit length. The characteristic impedance $Z_0$ of the line is given by:
+
+\begin{equation}
+Z_0 = \sqrt{\frac{L}{C}}
+\end{equation}
+
+The propagation velocity $v$ of electromagnetic waves in the cable is:
+
+\begin{equation}
+v = \frac{1}{\sqrt{LC}}
+\end{equation}
+
+For a cable with dielectric constant $\epsilon_r$ and permeability $\mu_r$, the velocity is related to the speed of light $c$ by:
+
+\begin{equation}
+v = \frac{c}{\sqrt{\epsilon_r \mu_r}}
+\end{equation}
+
+\subsection{Reflections and Impedance Matching}
+
+When a pulse encounters an impedance discontinuity, such as at the end of a cable, a portion of the pulse is reflected. The reflection coefficient $\Gamma$ at a termination with load impedance $Z_L$ is:
+
+\begin{equation}
+\Gamma = \frac{Z_L - Z_0}{Z_L + Z_0}
+\end{equation}
+
+Special cases:
+\begin{itemize}
+    \item Open circuit ($Z_L = \infty$): $\Gamma = +1$ (total reflection, same polarity)
+    \item Short circuit ($Z_L = 0$): $\Gamma = -1$ (total reflection, inverted polarity)
+    \item Matched impedance ($Z_L = Z_0$): $\Gamma = 0$ (no reflection)
+\end{itemize}
+
+The transmission coefficient $T$ is:
+
+\begin{equation}
+T = 1 + \Gamma = \frac{2Z_L}{Z_L + Z_0}
+\end{equation}
+
+% Experimental Setup
+\section{Experimental Setup}
+
+\subsection{Equipment}
+
+\begin{itemize}
+    \item Pulse generator (square wave, adjustable frequency and amplitude)
+    \item Coaxial cable (type: RG-XX, length: \SI{XX}{\meter})
+    \item Digital oscilloscope (bandwidth: \SI{XXX}{\mega\hertz})
+    \item BNC connectors and adaptors
+    \item Termination resistors (various values)
+    \item BNC T-connector for splitting signals
+\end{itemize}
+
+\subsection{Procedure}
+
+\subsubsection{Part 1: Pulse Velocity Measurement}
+
+\begin{enumerate}
+    \item Connect the pulse generator to the oscilloscope using a short cable
+    \item Measure and record the pulse characteristics (rise time, width)
+    \item Insert the test cable between the generator and oscilloscope
+    \item Measure the time delay introduced by the cable
+    \item Calculate the propagation velocity using $v = L/\Delta t$ where $L$ is cable length
+\end{enumerate}
+
+\subsubsection{Part 2: Reflection Studies}
+
+\begin{enumerate}
+    \item Use a T-connector to split the signal for simultaneous monitoring
+    \item Connect the test cable with an open-circuit termination
+    \item Observe and record the reflected pulse
+    \item Repeat with short-circuit and matched terminations
+    \item Measure reflection coefficients from amplitude ratios
+\end{enumerate}
+
+\subsubsection{Part 3: Impedance Matching}
+
+\begin{enumerate}
+    \item Determine the cable's characteristic impedance
+    \item Test various termination resistances
+    \item Observe the effect on reflections
+    \item Find the optimal termination for maximum power transfer
+\end{enumerate}
+
+% Results
+\section{Results}
+
+\subsection{Pulse Velocity}
+
+The cable length was measured to be $L = \SI{XX.X \pm 0.X}{\meter}$. The time delay between the incident pulse and the received pulse was measured as $\Delta t = \SI{XX.X \pm 0.X}{\nano\second}$.
+
+The calculated propagation velocity:
+\begin{equation}
+v = \frac{L}{\Delta t} = \SI{X.XX \pm 0.XX e8}{\meter\per\second}
+\end{equation}
+
+This corresponds to approximately XX\% of the speed of light in vacuum, consistent with the dielectric material used in the cable.
+
+\subsection{Reflection Measurements}
+
+Table \ref{tab:reflections} summarizes the measured reflection coefficients for different termination conditions.
+
+\begin{table}[H]
+\centering
+\caption{Measured reflection coefficients for various terminations}
+\label{tab:reflections}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Termination} & \textbf{$V_{incident}$ (V)} & \textbf{$V_{reflected}$ (V)} & \textbf{$\Gamma_{measured}$} \\
+\hline
+Open circuit & X.XX & X.XX & X.XX $\pm$ X.XX \\
+Short circuit & X.XX & X.XX & X.XX $\pm$ X.XX \\
+\SI{50}{\ohm} resistor & X.XX & X.XX & X.XX $\pm$ X.XX \\
+\SI{75}{\ohm} resistor & X.XX & X.XX & X.XX $\pm$ X.XX \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Figures}
+
+% Uncomment and modify when adding figures
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.8\textwidth]{figure1.png}
+% \caption{Oscilloscope trace showing incident and reflected pulses for open-circuit termination}
+% \label{fig:open}
+% \end{figure}
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.8\textwidth]{figure2.png}
+% \caption{Oscilloscope trace showing incident and reflected pulses for matched termination}
+% \label{fig:matched}
+% \end{figure}
+
+% Discussion
+\section{Discussion}
+
+\subsection{Propagation Velocity}
+
+The measured propagation velocity agrees well with theoretical predictions based on the dielectric constant of the cable insulation material. The slight deviation from the theoretical value can be attributed to [discuss potential sources of error].
+
+\subsection{Reflection Phenomena}
+
+The observed reflections at cable terminations confirm the predictions of transmission line theory:
+
+\begin{itemize}
+    \item The open-circuit termination produced a reflected pulse with the same polarity as the incident pulse, consistent with $\Gamma = +1$
+    \item The short-circuit termination produced an inverted reflected pulse, consistent with $\Gamma = -1$
+    \item The matched termination (when $Z_L = Z_0$) showed minimal reflection, confirming the importance of impedance matching
+\end{itemize}
+
+\subsection{Impedance Matching}
+
+The experiment clearly demonstrates that impedance matching is crucial for efficient power transfer and signal integrity. When the load impedance matched the cable's characteristic impedance, reflections were minimized, preventing signal distortion and power loss.
+
+\subsection{Sources of Error}
+
+Several factors contributed to experimental uncertainty:
+
+\begin{itemize}
+    \item Finite bandwidth of the oscilloscope and pulse generator
+    \item Impedance mismatch at connectors
+    \item Cable length measurement uncertainty
+    \item Rise time effects affecting time delay measurements
+    \item Ambient temperature variations affecting cable properties
+\end{itemize}
+
+% Conclusion
+\section{Conclusion}
+
+This experiment successfully demonstrated the fundamental principles of pulse propagation in transmission lines. Key findings include:
+
+\begin{enumerate}
+    \item The propagation velocity was measured as \SI{X.XX \pm 0.XX e8}{\meter\per\second}, representing approximately XX\% of the speed of light
+    \item Reflection coefficients for open-circuit, short-circuit, and matched terminations were consistent with theoretical predictions
+    \item Impedance matching was shown to be critical for minimizing reflections and maintaining signal integrity
+\end{enumerate}
+
+The results verify the validity of transmission line theory and highlight the practical importance of these concepts in electrical engineering applications. Future experiments could explore frequency-dependent effects, dispersion in different cable types, and the behavior of more complex pulse shapes.
+
+% References
+\begin{thebibliography}{9}
+
+\bibitem{griffiths}
+Griffiths, D. J. (2017). 
+\textit{Introduction to Electrodynamics} (4th ed.).
+Cambridge University Press.
+
+\bibitem{ramo}
+Ramo, S., Whinnery, J. R., \& Van Duzer, T. (1994).
+\textit{Fields and Waves in Communication Electronics} (3rd ed.).
+John Wiley \& Sons.
+
+\bibitem{pozar}
+Pozar, D. M. (2011).
+\textit{Microwave Engineering} (4th ed.).
+John Wiley \& Sons.
+
+\bibitem{labmanual}
+Physics Department. (2024).
+\textit{Physics Laboratory Manual: Electricity and Magnetism}.
+University Name.
+
+\end{thebibliography}
+
+% Appendix (optional)
+\appendix
+\section{Raw Data Tables}
+
+% Include raw data tables here if needed
+
+\section{Error Analysis}
+
+% Include detailed error calculations here if needed
+
+\end{document}
