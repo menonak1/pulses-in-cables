@@ -1,0 +1,92 @@
+\documentclass[11pt, letterpaper]{article}
+
+% --- Packages ---
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs} % For professional tables
+\usepackage{siunitx}  % For units and significant figures
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{hyperref}
+
+% --- Title Section ---
+\title{Investigation of Pulse Propagation in Transmission Lines and Coaxial Cables}
+\author{Your Name \\ Lab Partner: [Partner's Name]}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This experiment investigated the properties of signal propagation in an ideal transmission line model (41 LC units) and actual coaxial cables. We determined the speed of pulse propagation by measuring delay times across varying lengths and analyzed the characteristic impedance $Z_0$. Reflection coefficients were studied under open-circuit, short-circuit, and resistive terminations. Our results yielded a propagation speed of $[Value] \pm [Uncertainty]$ LC-units/s for the model and $[Value] \pm [Uncertainty]$ m/s for the coaxial cable, which was compared to the theoretical speed of light in the dielectric.
+\end{abstract}
+
+\section{Introduction}
+Standard circuit theory often assumes instantaneous information transfer; however, in high-frequency applications, the finite speed of pulse propagation becomes significant[cite: 23, 24]. A transmission line can be modeled as a discrete "ladder" network of inductors ($L$) and capacitors ($C$) that store and transmit electromagnetic energy[cite: 27]. 
+
+The behavior is governed by the wave equations for voltage and current[cite: 46]:
+\begin{equation}
+\frac{\partial^{2}V}{\partial x^{2}}=L_{0}C_{0}\frac{\partial^{2}V}{\partial t^{2}} \quad \text{and} \quad \frac{\partial^{2}I}{\partial x^{2}}=L_{0}C_{0}\frac{\partial^{2}I}{\partial t^{2}}
+\end{equation}
+From these equations, the propagation velocity is defined as $v = 1/\sqrt{L_0 C_0}$[cite: 48]. Furthermore, the characteristic impedance ($Z_0$) represents the ratio of voltage to current for a wave traveling in one direction, given by $Z_0 = \sqrt{L_0/C_0}$[cite: 63, 64]. This report explores these relationships through an LC model and physical coaxial cables.
+
+\section{Experimental Setup and Technique}
+The experimental apparatus consisted of a Keysight EDU33211A waveform generator, a digital oscilloscope, and a 41-unit LC transmission model[cite: 128, 129, 145]. 
+
+The primary setup utilized a TEE connector to split the signal from the pulse generator[cite: 130]. One arm connected to the oscilloscope (Channel 1) to monitor the initial pulse, while the second arm connected to the transmission line[cite: 130]. Reflections returning from the end of the line were measured on the same oscilloscope. This setup allowed for the precise measurement of the "round-trip" time delay of pulses[cite: 130, 157].
+
+\section{Data and Results}
+\subsection{Exercise 1: LC Transmission Line}
+The LC units consisted of $C = 0.01 \mu F$ and $L = 1.5 mH$[cite: 159]. Raw data for the delay time vs. number of LC units is recorded in Table 1.
+
+\begin{table}[H]
+\centering
+\caption{Delay time measurements for varying LC units.}
+\begin{tabular}{@{}ccc@{}}
+\toprule
+Number of Units ($N$) & Delay Time $\Delta t$ ($\mu s$) & Uncertainty $\delta t$ ($\mu s$) \\ \midrule
+10 & [Value] & [Uncertainty] \\
+20 & [Value] & [Uncertainty] \\
+30 & [Value] & [Uncertainty] \\
+41 & [Value] & [Uncertainty] \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Exercise 2: Coaxial Cables}
+Measurements were taken for an open circuit (OC), short circuit (SC), and various resistive loads ($R_L$). 
+% Insert your observations about pulse inversion here. 
+% For SC, the reflection is inverted ($r = -1$); for OC, it is not ($r = 1$)[cite: 105].
+
+\section{Analysis and Calculations}
+\subsection{Speed of Propagation}
+A linear fit of the delay time vs. number of LC units was performed. The slope represents $1/v$. 
+% Describe your curve fitting here. 
+The theoretical speed calculated from $v = 1/\sqrt{L C}$ is:
+\begin{equation}
+v_{theo} = \frac{1}{\sqrt{(1.5 \times 10^{-3} H)(0.01 \times 10^{-6} F)}} = [Result] \text{ units/s}
+\end{equation}
+
+\subsection{Uncertainty Propagation}
+To calculate the uncertainty in velocity $\delta v$, we utilized the following partial derivative approach:
+\begin{equation}
+\delta v = \sqrt{ \left( \frac{\partial v}{\partial L} \delta L \right)^2 + \left( \frac{\partial v}{\partial C} \delta C \right)^2 }
+\end{equation}
+% Show your step-by-step propagation here for full marks!
+
+\section{Discussion}
+The impedance match was found when the returned pulse disappeared, corresponding to $R_L \approx Z_0$[cite: 152, 153]. We observed that the oscilloscope’s high impedance ($\sim 1 M\Omega$) allowed us to ignore its effects on reflections, as it effectively acts as an open circuit compared to the $50 \Omega$ line[cite: 138, 139]. 
+
+Attenuation was calculated using:
+\begin{equation}
+Attenuation(dB) = 10 \log_{10} \left( \frac{V_{refl}}{V_{init}} \right)^2
+\end{equation}
+Discrepancies between theoretical and experimental speeds in coaxial cables can be attributed to the dielectric constant ($\epsilon = 2.25$) of the polyethylene insulator[cite: 170].
+
+\section{Conclusion}
+The experiment successfully demonstrated the principles of wave propagation in discrete and continuous media. The measured speed of $[Value]$ was within $[X]\%$ of the theoretical value. Impedance matching was confirmed as the critical factor in preventing signal reflection and ensuring signal integrity.
+
+\end{document}
