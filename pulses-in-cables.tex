@@ -10,6 +10,7 @@
 \usepackage{caption}
 \usepackage{float}
 \usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
 \usepackage{pgfplots} % For native curve fitting and graphing
 \pgfplotsset{compat=1.18}
 \usepackage{hyperref}
@@ -24,7 +25,7 @@
 \maketitle
 
 \begin{abstract}
-This experiment investigated the finite propagation speed of electrical signals and impedance matching using a 41-unit LC discrete transmission line model and continuous coaxial cables. By analyzing the delay time of transmitted and reflected pulses, the propagation speed in the LC network was measured at $(2.55 \pm 0.01) \times 10^5 \text{ units/s}$, closely matching the theoretical expectation of $2.58 \times 10^5\ \text{units/s}$. Coaxial cables of lengths ranging from \qty{3.05}{m} to \qty{75.84}{m} yielded an average signal velocity of $\approx 1.95 \times 10^8 \text{ m/s}$. The characteristic impedance of the coaxial cable was experimentally determined to be $Z_0 \approx 51\ \Omega$. Furthermore, signal attenuation was calculated to be $-0.026 \text{ dB/m}$ for the \qty{75.84}{m} cable.
+This experiment investigated the finite propagation speed of electrical signals and impedance matching using a 41-unit LC discrete transmission line model and continuous coaxial cables. By analyzing the delay time of transmitted and reflected pulses, the propagation speed in the LC network was measured at $(2.55 \pm 0.01) \times 10^5 \text{ units/s}$, closely matching the theoretical expectation of $2.58 \times 10^5\ \text{units/s}$. A \qty{48.36}{m} coaxial cable yielded a signal velocity of $1.96 \times 10^8 \text{ m/s}$. The characteristic impedance of the coaxial cable was experimentally determined to be $Z_0 \approx 51\ \Omega$. Furthermore, signal attenuation was calculated to be $-0.026 \text{ dB/m}$ for the \qty{48.36}{m} cable.
 \end{abstract}
 
 \section{Introduction}
@@ -41,10 +42,41 @@ The apparatus consisted of a KEYSIGHT EDU33211A waveform generator, a digital os
 
 A TEE connector split the pulse generator output; one path connected directly to Channel 1 of the oscilloscope to monitor the input pulse, and the other path fed into the transmission line. The far end of the transmission line was connected to Channel 2 to observe transmission delay or left open/shorted to observe reflections on Channel 1.
 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw, rectangle, minimum width=2.2cm, minimum height=0.9cm,
+                align=center, font=\small},
+    arr/.style={-{Stealth}, thick},
+    node distance=1.5cm and 2.0cm
+]
+% Nodes
+\node[box] (gen)  {Pulse\\Generator};
+\node[box, right=of gen] (tee)  {TEE\\Connector};
+\node[box, right=of tee] (line) {Transmission\\Line / Cable};
+\node[box, right=of line] (term) {Termination\\($Z_L$)};
+\node[box, above=of tee] (ch1)  {Oscilloscope\\Ch.\,1};
+\node[box, above=of term] (ch2)  {Oscilloscope\\Ch.\,2};
+
+% Arrows
+\draw[arr] (gen)  -- node[above, font=\footnotesize]{BNC} (tee);
+\draw[arr] (tee)  -- node[above, font=\footnotesize]{coax} (line);
+\draw[arr] (line) -- (term);
+\draw[arr] (tee)  -- node[right, font=\footnotesize]{monitor} (ch1);
+\draw[arr] (term) -- node[right, font=\footnotesize]{Ch.\,2 / open} (ch2);
+
+% Reflection arrow — routed below the diagram as a clean right-angle path
+\draw[arr, dashed]
+    (term.south) -- ++(0,-0.6) -- node[below, font=\footnotesize]{reflected pulse}
+    ++(-6.0,0) -- (tee.south);
+\end{tikzpicture}
+\caption{Block diagram of the experimental setup. The TEE connector splits the generator output so that the incident pulse is monitored on Ch.\,1 while the transmitted (or reflected) pulse is observed on Ch.\,2.}
+\end{figure}
+
 \section{Data and Results}
 
 \subsection{Raw Data}
-Table 1 outlines the delay time ($\Delta t$) across varying nodes of the LC line. Table 2 details the signal behavior for the \qty{48.36}{m} coaxial cable under different resistive terminations.
+Table 1 outlines the delay time ($\Delta t$) across varying nodes of the LC line. Table 2 details the signal behavior for the \qty{48.36}{m} coaxial cable under different resistive terminations, and is used for all subsequent coaxial calculations.
 
 \begin{table}[H]
 \centering
@@ -127,18 +159,18 @@ Thus the experimental speed is $v_\text{exp} = (2.55 \pm 0.01) \times 10^5\ \tex
 Theoretical speed: $v_{theo} = 1/\sqrt{LC} = 1/\sqrt{(1.5\ \text{mH})(0.01\ \mu\text{F})} = 2.58 \times 10^5\ \text{units/s}$. The experimental value is within $1.2\%$ of the theory.
 
 \subsection{Coaxial Cable Propagation and Attenuation}
-For the coaxial cables, the wave travels round-trip during reflection measurements ($d = 2L$). Using the \qty{75.84}{m} open-circuit data ($t = \qty{774}{ns}$):
+For the coaxial cables, the wave travels round-trip during reflection measurements ($d = 2L$). Using the \qty{48.36}{m} open-circuit data from Table~2 ($t = \qty{494}{ns}$, $V_{sig} = \qty{4.19}{V}$, $V_{ret} = \qty{3.12}{V}$):
 \begin{equation}
-v_{coax} = \frac{2L}{t} = \frac{2(75.84)}{774 \times 10^{-9}} = 1.96 \times 10^8 \text{ m/s}
+v_{coax} = \frac{2L}{t} = \frac{2 \times 48.36}{494 \times 10^{-9}} = 1.96 \times 10^8 \text{ m/s}
 \end{equation}
-This agrees with the theoretical speed in a dielectric ($\epsilon = 2.25$):
-$v_{theo} = c/\sqrt{\epsilon} = 3\times 10^8 / 1.5 = 2.00 \times 10^8 \text{ m/s}$.
+This agrees with the theoretical speed in a dielectric ($\epsilon_r = 2.25$):
+$v_{theo} = c/\sqrt{\epsilon_r} = 3\times 10^8 / 1.5 = 2.00 \times 10^8 \text{ m/s}$.
 
-Attenuation for the \qty{75.84}{m} cable (round trip) was calculated using:
+Attenuation for the \qty{48.36}{m} cable (round trip) was calculated using:
 \begin{equation}
-\text{Attenuation} = 20 \log_{10}\!\left(\frac{V_{ret}}{V_{sig}}\right) = 20 \log_{10}\!\left(\frac{2.67}{4.20}\right) = -3.94 \text{ dB}
+\text{Attenuation} = 20 \log_{10}\!\left(\frac{V_{ret}}{V_{sig}}\right) = 20 \log_{10}\!\left(\frac{3.12}{4.19}\right) = -2.56 \text{ dB}
 \end{equation}
-Dividing by the total travel distance ($2 \times 75.84 = \qty{151.68}{m}$) yields a specific attenuation of $\approx -0.026 \text{ dB/m}$.
+Dividing by the total travel distance ($2 \times 48.36 = \qty{96.72}{m}$) yields a specific attenuation of $\approx -0.026 \text{ dB/m}$.
 
 \subsection{Propagation of Uncertainty}
 The uncertainty in the theoretical LC speed is derived using partial derivatives of $v = {(LC)}^{-1/2}$:
@@ -159,7 +191,7 @@ Thus, theoretical speed is $(2.58 \pm 0.14) \times 10^5$ units/s. The experiment
 \section{Discussion and Conclusion}
 The results strongly confirm the theoretical models for signal propagation. Impedance matching was vividly demonstrated; as seen in Table 2, inserting a $51\ \Omega$ termination reduced the reflected pulse to nearly zero ($r \approx -0.03$), perfectly aligning with the standard $Z_0 \approx 50\ \Omega$ specification for RG-58 cables. 
 
-When the cable was open-circuited ($Z_L = \infty$), the reflection was non-inverted ($r>0$), and when short-circuited ($Z_L = 0$), it was perfectly inverted ($r<0$). We safely ignored the oscilloscope's presence during reflection measurements because its input impedance ($1\ M\Omega$) acts virtually as an open circuit in parallel with the $50\ \Omega$ line, drawing negligible current.
+When the cable was open-circuited ($Z_L = \infty$), the reflection was non-inverted ($r>0$), and when short-circuited ($Z_L = 0$), it was perfectly inverted ($r<0$). We safely ignored the oscilloscope's presence during reflection measurements because its input impedance ($1\ M\Omega$) acts virtually as an open circuit in parallel with the $50\ \Omega$ line, drawing negligible current. Furthermore, considering the DC equivalent of an open-circuited line, the potential difference across the circuit will simply equal the source voltage, as no current flows and therefore no voltage is dropped across the line's internal resistance.
 
 Ultimately, pulses do not travel at $c$, but are slowed by the dielectric constant of the insulator. The experiment successfully mapped these propagation speeds, characterized $Z_0$, and quantified real-world signal attenuation.
 
